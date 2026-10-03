@@ -1,0 +1,215 @@
+/* CSS Variables for consistent theming */
+:root {
+    --bg-main: #0b0c10;
+    --bg-card: #1f2833;
+    --text-main: #c5c6c7;
+    --text-muted: #8a8d91;
+    --accent: #45a29e;
+    --accent-bright: #66fcf1;
+    --danger: #ff4c4c;
+    --danger-glow: rgba(255, 76, 76, 0.4);
+    --safe: #2ecc71;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background-color: rgba(31, 40, 51, 0.95);
+    border-bottom: 1px solid var(--accent);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent-bright);
+    letter-spacing: 1px;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    margin-left: 0.5rem;
+}
+
+.btn-primary {
+    background-color: var(--accent-bright);
+    color: var(--bg-main);
+}
+
+.btn-primary:hover {
+    background-color: var(--accent);
+}
+
+.btn-outline {
+    border: 1px solid var(--accent-bright);
+    color: var(--accent-bright);
+}
+
+.btn-outline:hover {
+    background-color: rgba(102, 252, 241, 0.1);
+}
+
+/* Main Content */
+.container {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 5%;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.hero p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+.status-message {
+    text-align: center;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.status-message.loading {
+    color: var(--accent-bright);
+}
+
+.status-message.error {
+    background-color: rgba(255, 76, 76, 0.1);
+    color: var(--danger);
+    border: 1px solid var(--danger);
+}
+
+/* Grid Layout */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Asteroid Cards */
+.card {
+    background-color: var(--bg-card);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border-top: 4px solid var(--accent);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+.card.danger {
+    border-top: 4px solid var(--danger);
+    animation: pulse-danger 2.5s infinite;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 0.8rem;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    color: #fff;
+    font-weight: 700;
+}
+
+.card-id {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: monospace;
+}
+
+.card-body p {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.card-body .label {
+    color: var(--text-muted);
+}
+
+.badge {
+    padding: 0.3rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.badge.safe {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: var(--safe);
+    border: 1px solid var(--safe);
+}
+
+.badge.hazardous {
+    background-color: rgba(255, 76, 76, 0.1);
+    color: var(--danger);
+    border: 1px solid var(--danger);
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--bg-card);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 3rem;
+}
+
+/* Danger Pulse Animation */
+@keyframes pulse-danger {
+    0% { box-shadow: 0 0 0 0 var(--danger-glow); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 76, 76, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 76, 76, 0); }
+}
