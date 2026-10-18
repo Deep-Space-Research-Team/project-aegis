@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Aegis | NEO Tracker</title>
-    <meta name="description" content="Live Near-Earth Object Tracking System based on NASA NeoWs API">
+    <title>Project Aegis | Deep Space & Exoplanet Research Portal</title>
+    <meta name="description" content="Live Near-Earth Object Tracking System and Confirmed Exoplanet Research Archive based on NASA APIs">
     
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JB0X2VS9Q7"></script>
@@ -26,9 +26,19 @@
 
     <nav class="navbar">
         <div class="nav-brand">
-            <!-- Changed icon to a shield to match 'Aegis' -->
             <i class="fa-solid fa-shield-halved"></i> Project Aegis
         </div>
+        
+        <!-- Database View Switcher -->
+        <div class="nav-tabs">
+            <button id="tab-asteroids" class="tab-btn active">
+                <i class="fa-solid fa-meteor"></i> NEO Tracker
+            </button>
+            <button id="tab-planets" class="tab-btn">
+                <i class="fa-solid fa-globe"></i> Exoplanet Archive
+            </button>
+        </div>
+
         <div class="nav-links">
             <a href="https://deep-space-api-cuhq.onrender.com/sync-data" target="_blank" class="btn btn-outline">Sync Data</a>
             <a href="https://deep-space-api-cuhq.onrender.com/generate-key" target="_blank" class="btn btn-primary">Get API Key</a>
@@ -36,23 +46,78 @@
     </nav>
 
     <main class="container">
-        <header class="hero">
-            <h1>Near-Earth Object Database</h1>
-            <p>Monitoring deep space anomalies and approaching asteroids in real-time.</p>
-        </header>
+        
+        <!-- SECTION 1: ASTEROID TRACKER -->
+        <section id="section-asteroids" class="view-section">
+            <header class="hero">
+                <h1>Near-Earth Object Database</h1>
+                <p id="asteroid-subtitle">Monitoring deep space anomalies and approaching asteroids in real-time. Click any object for full telemetry.</p>
+            </header>
 
-        <div id="status-message" class="status-message loading">
-            <i class="fa-solid fa-circle-notch fa-spin"></i> Establishing connection to Project Aegis Database...
-        </div>
+            <div id="asteroid-status" class="status-message loading">
+                <i class="fa-solid fa-circle-notch fa-spin"></i> Establishing connection to Project Aegis NEO Server...
+            </div>
 
-        <!-- Dashboard Grid -->
-        <div class="dashboard" id="asteroid-grid">
-            <!-- Asteroid cards will be injected here by script.js -->
-        </div>
+            <div class="dashboard" id="asteroid-grid">
+                <!-- Asteroid cards injected by script.js -->
+            </div>
+        </section>
+
+        <!-- SECTION 2: EXOPLANET RESEARCH ARCHIVE -->
+        <section id="section-planets" class="view-section" style="display: none;">
+            <header class="hero">
+                <h1>Confirmed Exoplanet Research Archive</h1>
+                <p id="planet-subtitle">Comprehensive astrophysical parameters, orbital telemetry, and stellar data. Click any planet for full dossier.</p>
+            </header>
+
+            <!-- Researcher Filter & Search Controls -->
+            <div class="research-controls">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="planet-search" placeholder="Search by planet name, host star, or discovery facility...">
+                </div>
+                <div class="filter-group">
+                    <select id="filter-method" class="filter-select">
+                        <option value="ALL">All Discovery Methods</option>
+                        <option value="Transit">Transit</option>
+                        <option value="Radial Velocity">Radial Velocity</option>
+                        <option value="Imaging">Direct Imaging</option>
+                        <option value="Microlensing">Microlensing</option>
+                    </select>
+                    <select id="filter-temp" class="filter-select">
+                        <option value="ALL">All Thermal Regimes</option>
+                        <option value="HABITABLE">Temperate / Habitable Zone (200K - 320K)</option>
+                        <option value="HOT">Hot / Scorched (&gt; 320K)</option>
+                        <option value="COLD">Cryogenic / Frozen (&lt; 200K)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="planet-status" class="status-message loading">
+                <i class="fa-solid fa-circle-notch fa-spin"></i> Querying NASA Exoplanet Science Institute (NExScI) TAP Server...
+            </div>
+
+            <div class="dashboard" id="planet-grid">
+                <!-- Planet cards injected by script.js -->
+            </div>
+        </section>
+
     </main>
 
+    <!-- FLOATING ISLAND TELEMETRY MODAL -->
+    <div id="island-backdrop" class="island-backdrop" aria-hidden="true">
+        <div id="island-window" class="island-window" role="dialog" aria-modal="true">
+            <button id="island-close" class="island-close" aria-label="Close telemetry window">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="island-content">
+                <!-- Dynamic Scientific Dossier injected by script.js -->
+            </div>
+        </div>
+    </div>
+
     <footer>
-        <p>Data powered by NASA NeoWs API | System connected to Project Aegis Server</p>
+        <p>Data powered by NASA NeoWs &amp; NASA Exoplanet Archive (Caltech/IPAC) | System connected to Project Aegis Server</p>
     </footer>
 
     <!-- Link to external JavaScript -->

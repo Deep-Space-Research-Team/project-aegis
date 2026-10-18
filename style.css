@@ -2,6 +2,8 @@
 :root {
     --bg-main: #0b0c10;
     --bg-card: #1f2833;
+    --bg-island: rgba(22, 29, 38, 0.96);
+    --bg-input: #141a22;
     --text-main: #c5c6c7;
     --text-muted: #8a8d91;
     --accent: #45a29e;
@@ -9,6 +11,8 @@
     --danger: #ff4c4c;
     --danger-glow: rgba(255, 76, 76, 0.4);
     --safe: #2ecc71;
+    --planet-accent: #3498db;
+    --habitable: #00e676;
 }
 
 * {
@@ -32,12 +36,15 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
     padding: 1rem 5%;
     background-color: rgba(31, 40, 51, 0.95);
     border-bottom: 1px solid var(--accent);
     position: sticky;
     top: 0;
     z-index: 100;
+    backdrop-filter: blur(8px);
 }
 
 .nav-brand {
@@ -45,6 +52,45 @@ body {
     font-weight: 700;
     color: var(--accent-bright);
     letter-spacing: 1px;
+}
+
+/* Navigation Tabs */
+.nav-tabs {
+    display: flex;
+    gap: 0.5rem;
+    background: var(--bg-main);
+    padding: 0.3rem;
+    border-radius: 6px;
+    border: 1px solid rgba(102, 252, 241, 0.2);
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 0.5rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tab-btn:hover {
+    color: #fff;
+}
+
+.tab-btn.active {
+    background-color: var(--accent);
+    color: var(--bg-main);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
 }
 
 .btn {
@@ -55,6 +101,9 @@ body {
     font-size: 0.9rem;
     transition: all 0.3s ease;
     margin-left: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
 }
 
 .btn-primary {
@@ -79,19 +128,19 @@ body {
 .container {
     flex: 1;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
     padding: 2rem 5%;
 }
 
 .hero {
     text-align: center;
-    margin-bottom: 3rem;
-    padding: 2rem 0;
+    margin-bottom: 2rem;
+    padding: 1.5rem 0;
 }
 
 .hero h1 {
-    font-size: 2.5rem;
+    font-size: 2.4rem;
     color: #fff;
     margin-bottom: 0.5rem;
 }
@@ -99,6 +148,64 @@ body {
 .hero p {
     color: var(--text-muted);
     font-size: 1.1rem;
+}
+
+/* Researcher Search & Filter Bar */
+.research-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background-color: var(--bg-card);
+    padding: 1.2rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.search-box {
+    flex: 1;
+    min-width: 260px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-box i {
+    position: absolute;
+    left: 1rem;
+    color: var(--text-muted);
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.6rem;
+    background-color: var(--bg-input);
+    border: 1px solid rgba(102, 252, 241, 0.25);
+    border-radius: 6px;
+    color: #fff;
+    font-size: 0.95rem;
+}
+
+.search-box input:focus,
+.filter-select:focus {
+    outline: none;
+    border-color: var(--accent-bright);
+}
+
+.filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.filter-select {
+    padding: 0.75rem 1rem;
+    background-color: var(--bg-input);
+    border: 1px solid rgba(102, 252, 241, 0.25);
+    border-radius: 6px;
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
 }
 
 .status-message {
@@ -122,28 +229,41 @@ body {
 /* Grid Layout */
 .dashboard {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 1.5rem;
 }
 
-/* Asteroid Cards */
+/* Interactive Cards */
 .card {
     background-color: var(--bg-card);
     border-radius: 8px;
     padding: 1.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     border-top: 4px solid var(--accent);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    position: relative;
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
 }
 
 .card.danger {
     border-top: 4px solid var(--danger);
     animation: pulse-danger 2.5s infinite;
+}
+
+.card.planet-card {
+    border-top: 4px solid var(--planet-accent);
+}
+
+.card.planet-card.habitable-candidate {
+    border-top: 4px solid var(--habitable);
 }
 
 .card-header {
@@ -156,34 +276,91 @@ body {
 }
 
 .card-title {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     color: #fff;
     font-weight: 700;
 }
 
 .card-id {
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     color: var(--text-muted);
     font-family: monospace;
+    margin-top: 0.2rem;
 }
 
 .card-body p {
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.5rem;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
 }
 
 .card-body .label {
     color: var(--text-muted);
 }
 
+.card-footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 0.6rem;
+    border-top: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.inspect-hint {
+    font-size: 0.78rem;
+    color: var(--accent-bright);
+    opacity: 0.75;
+    transition: opacity 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.card:hover .inspect-hint {
+    opacity: 1;
+}
+
+/* Scientific Telemetry Grid for Planet Cards */
+.telemetry-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    margin: 0.8rem 0;
+    background: rgba(11, 12, 16, 0.45);
+    padding: 0.8rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.telemetry-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.telemetry-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+}
+
+.telemetry-value {
+    font-size: 0.92rem;
+    color: #fff;
+    font-weight: 600;
+    font-family: monospace;
+}
+
+/* Badges */
 .badge {
-    padding: 0.3rem 0.6rem;
+    padding: 0.3rem 0.65rem;
     border-radius: 20px;
-    font-size: 0.75rem;
+    font-size: 0.73rem;
     font-weight: 700;
     text-transform: uppercase;
+    display: inline-block;
 }
 
 .badge.safe {
@@ -198,6 +375,187 @@ body {
     border: 1px solid var(--danger);
 }
 
+.badge.planet-badge {
+    background-color: rgba(52, 152, 219, 0.15);
+    color: #5dade2;
+    border: 1px solid #3498db;
+}
+
+.badge.habitable-badge {
+    background-color: rgba(0, 230, 118, 0.12);
+    color: var(--habitable);
+    border: 1px solid var(--habitable);
+}
+
+/* ==========================================
+   FLOATING ISLAND MODAL WINDOW
+   ========================================== */
+.island-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 7, 11, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.island-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.island-window {
+    background: var(--bg-island);
+    width: 100%;
+    max-width: 780px;
+    max-height: 88vh;
+    overflow-y: auto;
+    border-radius: 20px;
+    border: 1px solid rgba(102, 252, 241, 0.35);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 30px rgba(69, 162, 158, 0.15);
+    padding: 2rem;
+    position: relative;
+    transform: translateY(28px) scale(0.95);
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.island-backdrop.open .island-window {
+    transform: translateY(0) scale(1);
+}
+
+.island-window.danger-island {
+    border-color: rgba(255, 76, 76, 0.55);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(255, 76, 76, 0.2);
+}
+
+.island-window.habitable-island {
+    border-color: rgba(0, 230, 118, 0.55);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(0, 230, 118, 0.2);
+}
+
+.island-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-main);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.island-close:hover {
+    background: var(--danger);
+    color: #fff;
+    border-color: var(--danger);
+    transform: rotate(90deg);
+}
+
+.island-header {
+    padding-right: 2.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1.2rem;
+}
+
+.island-eyebrow {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent-bright);
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+}
+
+.island-title {
+    font-size: 1.85rem;
+    color: #fff;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.island-subtitle {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    font-family: monospace;
+    margin-top: 0.35rem;
+}
+
+.island-section-title {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-bright);
+    margin: 1.4rem 0 0.75rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.island-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+    gap: 0.85rem;
+}
+
+.island-stat-box {
+    background: rgba(11, 12, 16, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+}
+
+.island-stat-box .stat-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.island-stat-box .stat-value {
+    font-size: 1.05rem;
+    color: #fff;
+    font-weight: 700;
+    font-family: monospace;
+}
+
+.island-summary-box {
+    background: rgba(69, 162, 158, 0.08);
+    border-left: 3px solid var(--accent-bright);
+    padding: 1rem 1.2rem;
+    border-radius: 6px;
+    margin-top: 1.2rem;
+    font-size: 0.94rem;
+    color: var(--text-main);
+}
+
+.island-actions {
+    margin-top: 1.6rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
 footer {
     text-align: center;
     padding: 2rem;
@@ -207,9 +565,25 @@ footer {
     margin-top: 3rem;
 }
 
-/* Danger Pulse Animation */
 @keyframes pulse-danger {
     0% { box-shadow: 0 0 0 0 var(--danger-glow); }
     70% { box-shadow: 0 0 0 10px rgba(255, 76, 76, 0); }
     100% { box-shadow: 0 0 0 0 rgba(255, 76, 76, 0); }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+    .nav-tabs, .nav-links {
+        justify-content: center;
+    }
+    .island-window {
+        padding: 1.4rem;
+    }
+    .island-title {
+        font-size: 1.45rem;
+    }
 }
